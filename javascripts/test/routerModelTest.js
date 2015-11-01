@@ -8,6 +8,10 @@ describe('router model test', function() {
         model = new Model();
     });
 
+    afterEach(function() {
+       window.location.hash = '';
+    });
+
     it('should pass', function() {
         expect(model).toBeDefined();
     });
@@ -18,29 +22,31 @@ describe('router model test', function() {
             console.log(hello);
         };
 
-        model.addRoute('hello', cb);
+        model.addPattern('hello', cb);
 
-        expect(model.routes['/hello']).toBeDefined();
-        expect(model.routes['hello']).toBeUndefined();
+        expect(model.patterns['/hello']).toBeDefined();
+        expect(model.patterns['hello']).toBeUndefined();
 
 
-        model.removeRoute('hello');
-        expect(model.routes['hello']).toBeUndefined();
-        expect(model.routes['/hello']).toBeUndefined();
+        model.removePattern('hello');
+        expect(model.patterns['hello']).toBeUndefined();
+        expect(model.patterns['/hello']).toBeUndefined();
     });
 
-    it('match pattern', function() {
+    it('calls appropriate callback on hashchange', function() {
 
-        var testRoute1 = '/hello';
-        var testRoute3 = '/first/:param1/second/:param2';
+        var cb = jasmine.createSpy('fake callback');
+        var pattern = '/hello/world';
+        model.addPattern(pattern, cb);
+        expect(cb).not.toHaveBeenCalled();
 
-        model.addRoute(testRoute1);
-        model.addRoute(testRoute3);
+        window.location.hash = '#/hello/world';
+        expect(cb).toHaveBeenCalled();
 
-        expect(model.getRoute(testRoute1).pattern).toEqual(testRoute1);
-        expect(model.getRoute(testRoute1).pattern).toEqual(testRoute1);
-        expect(model.getRoute('first/el/second/el').pattern).toEqual(testRoute3);
-        expect(model.getRoute('first/el/second1/el')).toBeUndefined();
-    })
+    });
+
+    it('calls approoriate callback and transfer object', function() {
+
+    });
 
 });

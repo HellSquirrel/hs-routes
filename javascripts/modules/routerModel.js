@@ -1,33 +1,42 @@
 import EventEmitter from 'events';
+var Parser = require('./routeParser');
+
 
 class Model extends EventEmitter{
     constructor() {
 
         super();
-        this.routes = {}
+        this.patterns = {};
+        window.addEventListener('hashchange', this.processRoute.bind(this), false);
     }
 
-    addRoute(key, cb) {
+    //process all mached patterns
+    processRoute() {
 
-        key = this.normalize(key);
-        if(this.routes[key]) throw new Error('route exists');
-        this.routes[key] = cb;
-        this.emit('route.add');
-    }
+        var route = window.location.hash.slice(1, -1);
 
-    removeRoute(key) {
+        for(var pattern in this.patterns) {
+            if (Parser.match(route, pattern)) {
 
-        key = this.normalize(key);
-        this.routes[key] = undefined;
-    }
-
-    getRoute(string) {
-
-        for(var route in this.routes) {
-            if(this.match(route, string)) {
-                return this.routes[route];
+                //call cb
+                this.patterns[pattern]();
             }
         }
+    }
+
+    addPattern(key, cb) {
+
+        key = this.normalize(key);
+        if(this.patterns[key]) throw new Error('pattern exists');
+        this.patterns[key] = cb;
+        this.emit('pattern.add');
+    }
+
+    removePattern(key) {
+
+        key = this.normalize(key);
+        this.patterns[key] = undefined;
+        this.emit('pattern.remove');
     }
 
     normalize(route) {
@@ -39,11 +48,6 @@ class Model extends EventEmitter{
         else {
             return route
         }
-    }
-
-    match(string, pattern) {
-
-        pattern = pattern.replace(/:\w+/ig, '(\w+)');
     }
 }
 
