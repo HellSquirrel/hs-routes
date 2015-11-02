@@ -43,15 +43,17 @@ describe('router model test', function() {
         expect(cb).not.toHaveBeenCalled();
 
         window.location.hash = '#/hello/world';
+
         process.nextTick(function() {
-            expect(cb).toHaveBeenCalled();
+            expect(cb).toHaveBeenCalledWith({
+                path: ['hello', 'world'],
+                query: null,
+                params: {}
+            });
+
             done();
         });
 
-
-    });
-
-    it('calls approoriate callback and transfer object', function() {
 
     });
 

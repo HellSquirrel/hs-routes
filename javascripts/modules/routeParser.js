@@ -1,3 +1,5 @@
+//wildcards doesnt work with query
+
 class Parser {
 
     static parse(route) {
@@ -34,37 +36,41 @@ class Parser {
 
     static match(route, pattern) {
 
-        var params = {};
-        var parsedPattern = Parser.parse(pattern).path;
-        var parsedRoute = Parser.parse(route).path;
+        var parsedPatternPath = Parser.parse(pattern).path;
 
-        var parsedRouteLength  = parsedRoute.length;
-        var parsedPatternLength = parsedPattern.length;
+        var parsedPattern = Parser.parse(route);
+        var parsedRoutePath = Parser.parse(route).path;
+        var params = {};
+        var matcher = {...parsedPattern};
+
+        var parsedRouteLength  = parsedRoutePath.length;
+        var parsedPatternLength = parsedPatternPath.length;
 
         if(parsedRouteLength === parsedPatternLength) {
 
             for(var i = 0; i < parsedRouteLength; i++) {
 
-                if(parsedPattern[i][0] == ':') {
-                    params[parsedPattern.slice(1, -1)] = parsedRoute[i];
+                if(parsedPatternPath[i][0] == ':') {
+                    params[parsedPatternPath[i].slice(1)] = parsedRoutePath[i];
                 }
 
                 else {
-                    if(parsedPattern[i] !== parsedRoute[i]) {
+                    if(parsedPatternPath[i] !== parsedRoutePath[i]) {
                         return null;
                     }
                 }
             }
 
-            return params;
+            matcher.params = params;
+            return matcher;
         }
 
         else {
 
-            if(parsedPattern.slice(-1)[0] === '*' && parsedRouteLength > parsedPatternLength) {
+            if(parsedPatternPath.slice(-1)[0] === '*') {
 
-                var newPattern = parsedPattern.slice(0, -1);
-                var newRoute = parsedRoute.slice(0, newPattern.length);
+                var newPattern = parsedPatternPath.slice(0, -1);
+                var newRoute = parsedRoutePath.slice(0, newPattern.length);
 
                 return Parser.match(newRoute.join('/'), newPattern.join('/'));
             };

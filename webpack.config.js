@@ -15,7 +15,7 @@ var config = {
       "./javascripts/entry"]
   },
 
-  devtool: 'eval',
+  devtool: 'cheap-module-source-map',
 
   output:
   {

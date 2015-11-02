@@ -2,3 +2,4 @@
 require('./routerModelTest');
 require('./routerParserTest');
 require('./utilsTest');
+require('./componentRouterModelTest');

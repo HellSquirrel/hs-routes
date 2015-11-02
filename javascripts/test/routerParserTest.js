@@ -4,7 +4,7 @@ var _ = require('lodash');
 
 describe('route parser tests', function() {
 
-    
+
     it('can parse path', function() {
 
         var route = '/some/test/route?hello=true&bye=false';
@@ -49,7 +49,7 @@ describe('route parser tests', function() {
 
         var result = Parser.match(route,pattern);
         expect(result).toBeTruthy();
-        expect(_.isEqual(result,{data:'value', id: 17}));
+        expect(_.isEqual(result.params,{data:'value', id: '17'})).toBeTruthy();
 
         route = '/firs/second/last/0';
         expect(Parser.match(route, pattern)).toBeFalsy();
@@ -65,9 +65,14 @@ describe('route parser tests', function() {
 
         var result = Parser.match(route, pattern);
         expect(result).toBeTruthy();
-        expect(_.isEqual(result, {data: 'value'}));
+        expect(_.isEqual(result.params, {data: 'value'}));
 
-        route = '/first/second/:data*';
-        expect(Parser.match(route, pattern)).toBeFalsy();
+
+        pattern = '/first/second/:data/*';
+        route = '/first/second/value';
+
+        result = Parser.match(route, pattern);
+        expect(_.isEqual(result.params, {data:'value'})).toBeTruthy();
+
     })
 });

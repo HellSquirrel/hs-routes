@@ -1,88 +1,91 @@
 var webpack = require("webpack"),
-  path = require("path");
+    path = require("path");
 
 
 module.exports = function(config) {
-  config.set({
+    config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
 
 
-    // list of files / patterns to load in the browser
-    files: [
-      './javascripts/test/test.entry.js'
-    ],
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: ['jasmine'],
 
 
-    plugins: [
-      require("karma-webpack"),
-      require("karma-jasmine"),
-      require("karma-chrome-launcher"),
-      require("karma-mocha-reporter")
-
-    ],
-
-    reporters: ['mocha'],
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      './javascripts/test/test.entry.js': ["webpack"]
-    },
+        // list of files / patterns to load in the browser
+        files: [
+            './javascripts/test/test.entry.js'
+        ],
 
 
-    webpack: {
-      module: {
-        loaders: [
-          {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel-loader']},
-        ]
-      },
+        plugins: [
+            require("karma-webpack"),
+            require("karma-jasmine"),
+            require("karma-chrome-launcher"),
+            require("karma-mocha-reporter")
 
-      plugins: [
-        new webpack.PrefetchPlugin('jquery'),
-        new webpack.ProvidePlugin({
-          $: 'jquery'
-        })
-      ],
+        ],
 
-      resolve: {
-        extensions: ['', '.js', '.jsx'],
-        modulesDirectories: ["node_modules", "javascripts"]
-      }
-    },
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-
-    // web server port
-    port: 9876,
+        reporters: ['mocha'],
+        // preprocess matching files before serving them to the browser
+        // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
+        preprocessors: {
+            './javascripts/test/test.entry.js': ["webpack"]
+        },
 
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+        webpack: {
+
+            devtool: 'cheap-module-inline-source-map',
+
+            module: {
+                loaders: [
+                    {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel-loader']},
+                ]
+            },
+
+            plugins: [
+                new webpack.PrefetchPlugin('jquery'),
+                new webpack.ProvidePlugin({
+                    $: 'jquery'
+                })
+            ],
+
+            resolve: {
+                extensions: ['', '.js', '.jsx'],
+                modulesDirectories: ["node_modules", "javascripts"]
+            }
+        },
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+
+        // web server port
+        port: 9876,
 
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
 
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
 
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
 
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
-  })
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: ['Chrome'],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: false
+    })
 };

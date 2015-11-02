@@ -13,16 +13,22 @@ class Model extends EventEmitter{
     //process all callbacks that match route
     processRoute() {
 
-        var route = window.location.hash.slice(1, -1);
+        var route = window.location.hash.slice(1);
 
         for(var pattern in this.patterns) {
-            if (Parser.match(route, pattern)) {
-
-                //call cb
-                this.patterns[pattern]();
+            var match = Parser.match(route, pattern);
+            if (match) {
+               this.onMatch(pattern, match);
             }
         }
     }
+
+    onMatch(pattern, match) {
+        //call cb
+        this.patterns[pattern](match);
+        this.emit('route.match', match);
+    }
+
 
     addPattern(key, cb) {
 
