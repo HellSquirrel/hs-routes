@@ -10,7 +10,7 @@ class Model extends EventEmitter{
         window.addEventListener('hashchange', this.processRoute.bind(this), false);
     }
 
-    //process all mached patterns
+    //process all callbacks that match route
     processRoute() {
 
         var route = window.location.hash.slice(1, -1);

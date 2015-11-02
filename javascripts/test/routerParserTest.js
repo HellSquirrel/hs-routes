@@ -18,6 +18,7 @@ describe('route parser tests', function() {
         expect(_.isEqual(result, expected)).toBeTruthy();
     });
 
+
     it('can parse query', function() {
 
         var query = 'one=two&three=four';
@@ -54,6 +55,19 @@ describe('route parser tests', function() {
         expect(Parser.match(route, pattern)).toBeFalsy();
 
         route = '/firs/second/last/temp/10';
+        expect(Parser.match(route, pattern)).toBeFalsy();
+    });
+
+    it('can match url and pattern with wildcards', function () {
+
+        var pattern = '/first/second/:data/*';
+        var route = '/first/second/value/last/17';
+
+        var result = Parser.match(route, pattern);
+        expect(result).toBeTruthy();
+        expect(_.isEqual(result, {data: 'value'}));
+
+        route = '/first/second/:data*';
         expect(Parser.match(route, pattern)).toBeFalsy();
     })
 });

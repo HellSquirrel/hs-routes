@@ -5,6 +5,8 @@ describe('router model test', function() {
     var model;
     beforeEach(function() {
 
+        window.location.hash = '';
+
         model = new Model();
     });
 
@@ -33,7 +35,7 @@ describe('router model test', function() {
         expect(model.patterns['/hello']).toBeUndefined();
     });
 
-    it('calls appropriate callback on hashchange', function() {
+    it('calls appropriate callback on hashchange', function(done) {
 
         var cb = jasmine.createSpy('fake callback');
         var pattern = '/hello/world';
@@ -41,7 +43,11 @@ describe('router model test', function() {
         expect(cb).not.toHaveBeenCalled();
 
         window.location.hash = '#/hello/world';
-        expect(cb).toHaveBeenCalled();
+        process.nextTick(function() {
+            expect(cb).toHaveBeenCalled();
+            done();
+        });
+
 
     });
 

@@ -1,14 +1,19 @@
 class Parser {
 
     static parse(route) {
-
-        var routeString = route.match(/^\/([^?]*)/);
-        var path = routeString[1].split('/');
         var query = null;
+        var path = [];
 
-        var queryString = (route.match(/\?(.*)$/) || [,''])[1];
-        if(queryString.length) {
-            query = Parser.parseQuery(queryString);
+        var routeString = route.match(/^\/?([^?]*)/);
+
+        if(routeString.length) {
+
+            path = routeString[1].split('/');
+
+            var queryString = (route.match(/\?(.*)$/) || [,''])[1];
+            if(queryString.length) {
+                query = Parser.parseQuery(queryString);
+            }
         }
 
         return {
@@ -33,11 +38,12 @@ class Parser {
         var parsedPattern = Parser.parse(pattern).path;
         var parsedRoute = Parser.parse(route).path;
 
-        var l = parsedRoute.length;
+        var parsedRouteLength  = parsedRoute.length;
+        var parsedPatternLength = parsedPattern.length;
 
-        if(l === parsedPattern.length) {
+        if(parsedRouteLength === parsedPatternLength) {
 
-            for(var i = 0; i < l; i++) {
+            for(var i = 0; i < parsedRouteLength; i++) {
 
                 if(parsedPattern[i][0] == ':') {
                     params[parsedPattern.slice(1, -1)] = parsedRoute[i];
@@ -54,6 +60,15 @@ class Parser {
         }
 
         else {
+
+            if(parsedPattern.slice(-1)[0] === '*' && parsedRouteLength > parsedPatternLength) {
+
+                var newPattern = parsedPattern.slice(0, -1);
+                var newRoute = parsedRoute.slice(0, newPattern.length);
+
+                return Parser.match(newRoute.join('/'), newPattern.join('/'));
+            };
+
             return null
         }
 
