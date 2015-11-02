@@ -43,7 +43,7 @@ describe('component router model tests', function() {
 
         window.setTimeout(function() {
             expect(calls).toEqual(['willOpen', 'open', 'didOpen']);
-            //done();
+            done();
         }, 150);
     })
 });

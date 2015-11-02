@@ -18,17 +18,26 @@ class Model extends EventEmitter{
         for(var pattern in this.patterns) {
             var match = Parser.match(route, pattern);
             if (match) {
-               this.onMatch(pattern, match);
+               this.onRouteMatch(pattern, match);
+            }
+
+            else {
+                this.onRouteNotMatch(pattern);
             }
         }
     }
 
-    onMatch(pattern, match) {
+    onRouteMatch(pattern, match) {
         //call cb
-        this.patterns[pattern](match);
+        this.patterns[pattern].open(match);
         this.emit('route.match', match);
     }
 
+    onRouteNotMatch(pattern) {
+
+        this.patterns[pattern].close(pattern);
+        this.emit('route.not.match', pattern);
+    }
 
     addPattern(key, cb) {
 

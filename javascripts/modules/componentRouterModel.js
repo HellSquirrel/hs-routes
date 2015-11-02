@@ -17,13 +17,20 @@ class ComponentRouterModel extends RouterModel {
         this.emit('view.remove');
     }
 
-    onMatch(pattern, match) {
+    onRouteMatch(pattern, match) {
 
         var view = this.patterns[pattern];
         view.willOpen && view.willOpen(pattern, match);
         view.open && view.open(pattern, match);
         view.didOpen && view.didOpen(pattern, match);
         this.emit('route.match', match);
+    }
+
+    onRouteNotMatch(pattern) {
+        var view = this.patterns[pattern];
+        view.willClose && view.willClose(pattern);
+        view.close && view.close(pattern);
+        view.didClose && view.didClose(pattern);
     }
 }
 

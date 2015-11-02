@@ -11,6 +11,7 @@ describe('router model test', function() {
     });
 
     afterEach(function() {
+        model = null;
        window.location.hash = '';
     });
 
@@ -24,7 +25,7 @@ describe('router model test', function() {
             console.log(hello);
         };
 
-        model.addPattern('hello', cb);
+        model.addPattern('hello', {open: cb, close: function() {}});
 
         expect(model.patterns['/hello']).toBeDefined();
         expect(model.patterns['hello']).toBeUndefined();
@@ -35,26 +36,47 @@ describe('router model test', function() {
         expect(model.patterns['/hello']).toBeUndefined();
     });
 
-    it('calls appropriate callback on hashchange', function(done) {
 
-        var cb = jasmine.createSpy('fake callback');
+    it('calls appropriate open callback on hashchange', function(done) {
+
+        var cb = jasmine.createSpyObj('cb', ['open', 'close']);
         var pattern = '/hello/world';
         model.addPattern(pattern, cb);
-        expect(cb).not.toHaveBeenCalled();
+        expect(cb.open).not.toHaveBeenCalled();
 
         window.location.hash = '#/hello/world';
 
         process.nextTick(function() {
-            expect(cb).toHaveBeenCalledWith({
+            expect(cb.open).toHaveBeenCalledWith({
                 path: ['hello', 'world'],
                 query: null,
                 params: {}
             });
 
+            expect(cb.close).not.toHaveBeenCalled();
             done();
         });
+    });
+
+    it('calls appropriate close callback on hashchange', function(done) {
+
+        var cb = jasmine.createSpyObj('cb', ['open', 'close']);
+        var pattern = '/hello/world';
+        model.addPattern(pattern, cb);
+        expect(cb.open).not.toHaveBeenCalled();
+
+        window.location.hash = '#/hello/world';
 
 
+        window.setTimeout(function() {
+            window.location.hash = '/bb';
+        });
+
+        process.nextTick(function() {
+            expect(cb.open.calls.count()).toEqual(1);
+            expect(cb.close).toHaveBeenCalled();
+            done();
+        });
     });
 
 });
