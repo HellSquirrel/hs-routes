@@ -1,13 +1,14 @@
 var React = require('react');
 var TestUtils = require('react/lib/ReactTestUtils');
 var Route = require('../modules/reactRouteMixin');
+var Router = require('../modules/routerModel');
 
 function createStubComponent() {
     return React.createClass({
         mixins: [Route],
 
         render: function() {
-            return (<div className = 'stub'>
+            return (<div className = 'stub' router = {new Router()}>
                 {this.state.routeMatch ? 'visible' : 'hidden'}
             </div>)
         }

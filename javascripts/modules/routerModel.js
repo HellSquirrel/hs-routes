@@ -50,7 +50,7 @@ class Model extends EventEmitter{
     removePattern(key) {
 
         key = this.normalize(key);
-        this.patterns[key] = undefined;
+        delete this.patterns[key];
         this.emit('pattern.remove');
     }
 

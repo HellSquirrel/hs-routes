@@ -2,25 +2,24 @@ var ComponentRouterModel = require('../modules/componentRouterModel');
 
 describe('component router model tests', function() {
 
-    var model;
 
     beforeEach(function() {
         window.location.hash = '';
-        model = new ComponentRouterModel();
     });
 
     afterEach(function() {
-        model = null;
         window.location.hash = '';
     });
 
     it('should create component router model', function() {
+        var model = new ComponentRouterModel();
         expect(model).toBeDefined();
     });
 
 
     it('call appropriate methods on route match', function(done) {
 
+        var model = new ComponentRouterModel();
         var calls = [];
         var mock =  {
 
