@@ -1,6 +1,6 @@
 var React = require('react');
 var TestUtils = require('react/lib/ReactTestUtils');
-var Route = require('../modules/reactRouteMixin');
+var Route = require('../modules/reactRouterMixin');
 var Router = require('../modules/routerModel');
 
 function createStubComponent() {
