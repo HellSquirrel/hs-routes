@@ -5,7 +5,14 @@ var RouterClass = require('hs-routes');
 
 var router = new RouterClass.Router();
 
-router.addPattern('/some/path/:id', function() {
+var config = {
+    open(match) {
+        //do something on route match
+    }
+    
+    close(match) {
+        //do something on route unmatch
+    }
+}
 
-    //do something on route match
-})
+router.addPattern('/some/path/:id', config)
