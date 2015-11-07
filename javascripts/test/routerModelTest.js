@@ -34,6 +34,26 @@ describe('router model test', function() {
         expect(model.patterns['/hello']).toBeUndefined();
     });
 
+    it('raise error when try to add invalid matcher', function() {
+
+        var cb = {};
+        var model = new Model();
+
+        expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
+
+        cb = {open: function() {}};
+        expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
+
+        cb = {close: function() {}};
+        expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
+
+        cb = {close : 'hello', open: function() {}};
+        expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
+
+        cb = {opent: 'hello', close: function() {}};
+        expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
+
+    });
 
     it('calls appropriate open callback on hashchange', function(done) {
         var model = new Model();

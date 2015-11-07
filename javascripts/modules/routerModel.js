@@ -41,10 +41,17 @@ class Model extends EventEmitter{
 
     addPattern(key, cb) {
 
+        if(!this.isMatcherValid(cb)) throw new Error('invalid matcher, it should looks like {open: fn(), close: fh()}');
+
         key = this.normalize(key);
         if(this.patterns[key]) throw new Error('pattern exists');
         this.patterns[key] = cb;
         this.emit('pattern.add');
+    }
+
+    isMatcherValid(cb) {
+
+        return cb.open && cb.close && (typeof cb.open === 'function') && (typeof cb.close === 'function');
     }
 
     removePattern(key) {
