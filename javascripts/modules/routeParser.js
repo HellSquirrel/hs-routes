@@ -81,4 +81,4 @@ class Parser {
     }
 }
 
-module.exports = Parser;
+export default Parser;

@@ -1,4 +1,4 @@
-function createRoute(obj) {
+export function createRoute(obj) {
 
     var path = obj.path.join('/');
     var query = [];
@@ -14,4 +14,3 @@ function createRoute(obj) {
 
 };
 
-module.exports = {createRoute};

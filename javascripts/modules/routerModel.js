@@ -1,5 +1,5 @@
-import EventEmitter from 'events';
-var Parser = require('./routeParser');
+import {EventEmitter} from 'events';
+import Parser from './routeParser';
 
 
 class Model extends EventEmitter{
@@ -7,6 +7,8 @@ class Model extends EventEmitter{
 
         super();
         this.patterns = {};
+
+        this.processRoute();
         window.addEventListener('hashchange', this.processRoute.bind(this), false);
     }
 
@@ -73,4 +75,4 @@ class Model extends EventEmitter{
     }
 }
 
-module.exports = Model;
+export default Model

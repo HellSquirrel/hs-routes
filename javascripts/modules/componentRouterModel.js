@@ -34,4 +34,4 @@ class ComponentRouterModel extends RouterModel {
     }
 }
 
-module.exports = ComponentRouterModel;
+export default ComponentRouterModel;

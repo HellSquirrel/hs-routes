@@ -1,4 +1,4 @@
-var ComponentRouterModel = require('../modules/componentRouterModel');
+import ComponentRouterModel from '../modules/componentRouterModel';
 
 describe('component router model tests', function() {
 

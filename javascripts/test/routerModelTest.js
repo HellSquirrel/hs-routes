@@ -1,4 +1,4 @@
-var Model = require('../modules/routerModel');
+import Model from '../modules/routerModel';
 
 describe('router model test', function() {
 
@@ -50,9 +50,20 @@ describe('router model test', function() {
         cb = {close : 'hello', open: function() {}};
         expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
 
-        cb = {opent: 'hello', close: function() {}};
+        cb = {open: 'hello', close: function() {}};
         expect(model.addPattern.bind(null, '/hello', cb)).toThrowError();
 
+    });
+
+    it('can process route that changed before creating router instance', function() {
+
+        window.location.hash = '/hello';
+        var model = new Model();
+        var matcher = jasmine.createSpyObj('matcher', ['open', 'close']);
+        model.addPattern('/hello', matcher);
+
+        expect(matcher.open).toHaveBeenCalled();
+        expect(matcher.open.calls.count()).toEqual(1);
     });
 
     it('calls appropriate open callback on hashchange', function(done) {

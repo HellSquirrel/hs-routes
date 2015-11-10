@@ -1,4 +1,4 @@
-var createRoute = require('../modules/utils').createRoute;
+import * as utils from '../modules/utils';
 
 describe(
     'route creation test', function() {
@@ -13,7 +13,7 @@ describe(
                 query: {value: '5', string: 'hello'}
             };
 
-            expect(createRoute(obj)).toEqual('/one/two/three?value=5&string=hello');
+            expect(utils.createRoute(obj)).toEqual('/one/two/three?value=5&string=hello');
         })
     }
 );

@@ -19,5 +19,5 @@ var  ReactRouterComponent = {
     }
 };
 
-module.exports = ReactRouterComponent;
+export default ReactRouterComponent;
 
