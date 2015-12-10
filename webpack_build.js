@@ -6,6 +6,7 @@ var config = {
 
     entry: {
         bundle: ['./index.js'],
+        vendor: ['react', 'jquery', 'lodash']
     },
 
     output:
@@ -20,11 +21,9 @@ var config = {
         ]
     },
 
-    externals: {
-        jquery: 'jQuery',
-        react: 'react',
-        lodash: 'lodash'
-    },
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js")
+    ],
 
     resolve: {
         extensions: ['', '.js', '.jsx'],
