@@ -1,4 +1,4 @@
-import Parser from '../modules/routeParser';
+import Parser from '../helpers/routeParser';
 var _ = require('lodash');
 
 

@@ -2,5 +2,4 @@
 import './routerModelTest';
 import './routerParserTest';
 import './utilsTest';
-import './componentRouterModelTest';
 import './reactRouterComponentTest';

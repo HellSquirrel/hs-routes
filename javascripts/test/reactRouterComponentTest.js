@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react/lib/ReactTestUtils';
-import Route from '../modules/reactRouterMixin';
-import RouterModel from '../modules/routerModel';
+import ReactRouterComponent from '../components/routeMixin';
+import RouterModel from '../storages/routerModel';
 
 function createStubComponent() {
     return React.createClass({

@@ -1,4 +1,4 @@
-import * as utils from '../modules/utils';
+import * as utils from '../helpers/utils';
 
 describe(
     'route creation test', function() {

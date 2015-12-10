@@ -1,4 +1,4 @@
-import Model from '../modules/routerModel';
+import Model from '../storages/routerModel';
 
 describe('router model test', function() {
 

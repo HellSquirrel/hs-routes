@@ -28,7 +28,7 @@ gulp.task('styles', function () {
         browsers: ['last 2 version', 'IE 9']
       }))
       // Outputs CSS files in the css folder
-      .pipe(gulp.dest(folder)); 
+      .pipe(gulp.dest(folder));
 });
 
 gulp.task('sprites', function() {
@@ -74,7 +74,16 @@ gulp.task("server", function(callback) {
   new WebpackDevServer(webpack(myConfig), {
     publicPath: "/assets/",
     stats: {
-      colors: true
+        assets: true,
+        colors: true,
+        version: true,
+        hash: true,
+        timings: true,
+        chunks: true,
+        chunkModules: false,
+        cached: true,
+        reasons: true,
+        errorDetails: true
     },
     hot: true
   }).listen(8080, "localhost", function(err) {
