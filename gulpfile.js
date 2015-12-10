@@ -93,6 +93,37 @@ gulp.task("server", function(callback) {
 });
 
 
+var gulp = require('gulp');
+var webpack = require('webpack');
+var util = require('gulp-util');
+
+const webpackDefaultConfig = require('./webpack_build');
+
+function runWebpack(config) {
+    webpack(config, function(err, stats) {
+        if(err) throw new util.PluginError("webpack", err);
+        util.log("[webpack]", stats.toString({
+            // console output
+            assets: true,
+            colors: true,
+            version: true,
+            hash: true,
+            timings: true,
+            chunks: true,
+            chunkModules: false,
+            cached: true,
+            reasons: true,
+            errorDetails: true
+        }));
+    });
+}
+
+gulp.task('webpack_build', function(cb) {
+    runWebpack(webpackDefaultConfig);
+    cb();
+});
+
+
 gulp.task('jade', function() {
   var YOUR_LOCALS = {};
 
@@ -102,6 +133,8 @@ gulp.task('jade', function() {
     }))
     .pipe(gulp.dest('./dist/'))
 });
+
+gulp.task('build', ['webpack_build']);
 
 gulp.task('default', ['sprites', 'watch', 'styles', 'jade', 'server']);
 gulp.task('test', ['jasmine', 'watchTest']);
