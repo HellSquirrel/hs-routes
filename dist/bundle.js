@@ -1,10 +1,10 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("React"), require("lodash"), require("events"));
+		module.exports = factory(require("react"), require("lodash"), require("events"));
 	else if(typeof define === 'function' && define.amd)
-		define(["React", "lodash", "events"], factory);
+		define(["react", "lodash", "events"], factory);
 	else {
-		var a = typeof exports === 'object' ? factory(require("React"), require("lodash"), require("events")) : factory(root["React"], root["lodash"], root["events"]);
+		var a = typeof exports === 'object' ? factory(require("react"), require("lodash"), require("events")) : factory(root["React"], root["lodash"], root["events"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
 })(this, function(__WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_11__) {
@@ -129,7 +129,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    render: function render() {
 
-	        console.log('reeeaccccctttt', React);
 	        var classes = cn({
 	            'route-link': true,
 	            'route-link--active': this.isActive()

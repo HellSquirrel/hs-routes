@@ -12,7 +12,6 @@ var Link = React.createClass( {
 
     render() {
 
-        console.log('reeeaccccctttt', React);
         var classes = cn({
             'route-link': true,
             'route-link--active': this.isActive()
