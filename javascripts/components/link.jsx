@@ -1,17 +1,18 @@
 var React = require('react');
+
 import {createRoute, goTo} from '../helpers/utils';
 import Parser from '../helpers/routeParser';
 var cn = require('classnames');
 
-export default class Link extends React.Component {
-
+var Link = React.createClass( {
     isActive() {
 
         return window.location.hash.slice(-1) === this.props.to;
-    }
+    },
 
     render() {
 
+        console.log('reeeaccccctttt', React);
         var classes = cn({
             'route-link': true,
             'route-link--active': this.isActive()
@@ -23,4 +24,6 @@ export default class Link extends React.Component {
             </div>
         )
     }
-}
+});
+
+export default Link;

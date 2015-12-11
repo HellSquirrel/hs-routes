@@ -5,14 +5,27 @@ var config = {
     context: __dirname + '/javascripts',
 
     entry: {
-        bundle: ['./index.js'],
-        vendor: ['react', 'jquery', 'lodash']
+        bundle: ['./index.js']
     },
+
+    output: {
+        library: 'ReactRouter',
+        libraryTarget: 'umd'
+    },
+
+    externals: [
+        { react: 'React' },
+        'events',
+        {'jquery': 'jQuery'},
+        { 'lodash': 'lodash'}
+
+    ],
 
     output:
     {
         path: __dirname + '/dist',
-        filename:'[name].js'
+        filename:'[name].js',
+        libraryTarget: 'umd'
     },
 
     module: {
@@ -22,7 +35,7 @@ var config = {
     },
 
     plugins: [
-        new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js")
+        //new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.js")
     ],
 
     resolve: {
