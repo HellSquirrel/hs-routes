@@ -87,6 +87,10 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var utils = _interopRequireWildcard(_helpersUtils);
 
+	var _helpersRouteParser = __webpack_require__(4);
+
+	var _helpersRouteParser2 = _interopRequireDefault(_helpersRouteParser);
+
 	var _storagesRouterModel = __webpack_require__(10);
 
 	var _storagesRouterModel2 = _interopRequireDefault(_storagesRouterModel);
@@ -95,6 +99,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ReactRouterComponent = _componentsRouteMixin2['default'];
 	exports.createDebuggerFor = _storagesRouterModelDebugger2['default'];
 	exports.utils = utils;
+	exports.Parser = _helpersRouteParser2['default'];
 	exports['default'] = _storagesRouterModel2['default'];
 
 /***/ },
