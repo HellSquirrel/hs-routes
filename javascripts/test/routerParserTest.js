@@ -21,13 +21,22 @@ describe('route parser tests', function() {
 
     it('can parse query', function() {
 
-        var query = 'one=two&three=four';
+        var query = '%7B%22foo%22%3A%22bar%22%7D';
 
         var result = Parser.parseQuery(query);
-        var expected = {one: 'two', three: 'four'};
+        var expected = {foo:'bar'};
 
         expect(_.isEqual(result, expected)).toBeTruthy();
-        expect(_.isEqual(Parser.parseQuery('one=two'),{one: 'two'})).toBeTruthy();
+    });
+
+    it('can parse long query', function() {
+
+        var query = '%7B%22foo%22%3A%22bar%22%2C%22one%22%3A%7B%22min%22%3A3%2C%22max%22%3A4%7D%7D';
+
+        var result = Parser.parseQuery(query);
+        var expected = {foo:'bar', one: {min:3, max:4}};
+
+        expect(_.isEqual(result, expected)).toBeTruthy();
     });
 
     it('can create parse object', function() {

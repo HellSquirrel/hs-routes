@@ -1,4 +1,5 @@
 //wildcards doesnt work with query
+import { deserialize } from './utils';
 
 class Parser {
 
@@ -25,13 +26,7 @@ class Parser {
 
     static parseQuery(queryString) {
 
-        return queryString.split('&').reduce(function(result, el) {
-            var [key, value] = el.split('=');
-
-            result[key] = value;
-            return result;
-
-        }, {})
+        return deserialize(queryString);
     }
 
     static match(route, pattern) {

@@ -2,4 +2,4 @@
 import './routerModelTest';
 import './routerParserTest';
 import './utilsTest';
-import './reactRouterComponentTest';
+//import './reactRouterComponentTest';

@@ -26,3 +26,12 @@ export function goTo(path, query) {
 }
 
 
+export function serialize(obj) {
+    return encodeURIComponent(JSON.stringify(obj));
+}
+
+
+export function deserialize(string) {
+    return JSON.parse(decodeURIComponent(string));
+}
+
