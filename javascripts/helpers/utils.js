@@ -1,17 +1,13 @@
 export function createRoute(obj) {
 
-    var path = obj.path.join('/');
-    var query = [];
+    var path = '/' + obj.path.join('/');
 
-    if(obj.query) {
+    if(obj.query && Object.keys(obj.query).length) {
 
-        for(var key in obj.query) {
-            query.push(`${key}=${obj.query[key]}`);
-        }
+        path += '?' + serialize(obj.query)
     }
 
-    return '/' + path + '?' + query.join('&');
-
+    return path;
 };
 
 export function goTo(path, query) {

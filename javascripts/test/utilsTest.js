@@ -13,7 +13,7 @@ describe(
                 query: {value: '5', string: 'hello'}
             };
 
-            expect(utils.createRoute(obj)).toEqual('/one/two/three?value=5&string=hello');
+            expect(utils.createRoute(obj)).toEqual('/one/two/three?%7B%22value%22%3A%225%22%2C%22string%22%3A%22hello%22%7D');
         });
 
         it('should serialize and deserialize string', function() {

@@ -38,7 +38,7 @@ module.exports = function(config) {
 
         webpack: {
 
-            devtool: 'cheap-module-inline-source-map',
+            devtool: 'cheap-module-source-map',
 
             module: {
                 loaders: [
