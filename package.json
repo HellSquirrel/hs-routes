@@ -1,6 +1,6 @@
 {
   "name": "hs-router",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "main": "dist/bundle.js",
   "dependencies": {
     "jquery": "^2.1.4",
